@@ -1,4 +1,7 @@
-// Veriler
+//Bilgi ***** Kulanıcı adı hesap sahibinin isim/isimleri ve soyadının baş harfleridir 
+//Bilgi ***** Şifre veriler kısmında yazmaktadır
+
+// Veriler 
 const account1 = {
 	owner: 'Jonas Schmedtmann',
 	movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
