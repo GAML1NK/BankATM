@@ -1,8 +1,8 @@
-// Data
+// Veriler
 const account1 = {
 	owner: 'Jonas Schmedtmann',
 	movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-	interestRate: 1.2, // %
+	interestRate: 1.2,
 	pin: 1111,
 };
 
@@ -29,7 +29,7 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 
-// Elements
+// Elementler
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
 const labelBalance = document.querySelector('.balance__value');
@@ -97,7 +97,7 @@ const calcDisplaySummary = function (acc) {
 		.filter(mov => mov > 0)
 		.map(deposit => (deposit * acc.interestRate) / 100)
 		.filter((int, i, arr) => {
-			// console.log(arr);
+
 			return int >= 1;
 		})
 		.reduce((acc, int) => acc + int, 0);
@@ -114,24 +114,24 @@ const createUsernames = function (accs) {
 	});
 };
 createUsernames(accounts);
-
+//Ekrana Yansıtmalar
 const updateUI = function (acc) {
-	// Display movements
+
 	displayMovements(acc.movements);
 
-	// Display balance
+
 	calcDisplayBalance(acc);
 
-	// Display summary
+
 	calcDisplaySummary(acc);
 };
 
-///////////////////////////////////////
-// Event handlers
+
+// Fonksiyonlar ve Atamalar
 let currentAccount;
 
 btnLogin.addEventListener('click', function (e) {
-	// Prevent form from submitting
+
 	e.preventDefault();
 
 	currentAccount = accounts.find(
@@ -140,12 +140,12 @@ btnLogin.addEventListener('click', function (e) {
 	console.log(currentAccount);
 
 	if (currentAccount?.pin === Number(inputLoginPin.value)) {
-		// Display UI and message
+		//Giriş mesajı
 		labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]
 			}`;
 		containerApp.style.opacity = 100;
 
-		// Clear input fields
+		// İnputları temizleme
 		inputLoginUsername.value = inputLoginPin.value = '';
 		inputLoginPin.blur();
 
@@ -168,7 +168,7 @@ btnTransfer.addEventListener('click', function (e) {
 		currentAccount.balance >= amount &&
 		receiverAcc?.username !== currentAccount.username
 	) {
-		// Doing the transfer
+		// Para döngüsü
 		currentAccount.movements.push(-amount);
 		receiverAcc.movements.push(amount);
 
@@ -183,7 +183,7 @@ btnLoan.addEventListener('click', function (e) {
 	const amount = Number(inputLoanAmount.value);
 
 	if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-		// Add movement
+
 		currentAccount.movements.push(amount);
 
 		// Update UI
@@ -203,9 +203,9 @@ btnClose.addEventListener('click', function (e) {
 			acc => acc.username === currentAccount.username
 		);
 		console.log(index);
-		// .indexOf(23)
 
-		// Delete account
+
+		// Acc silme
 		accounts.splice(index, 1);
 
 		// Hide UI
@@ -221,6 +221,9 @@ btnSort.addEventListener('click', function (e) {
 	displayMovements(currentAccount.movements, !sorted);
 	sorted = !sorted;
 })
+
+
+// TRtoEN / ENtoTR
 const translations = {
 	en: {
 		welcome: "Log in to get started",
@@ -293,5 +296,5 @@ langToggleBtn.addEventListener('click', function () {
 	langToggleBtn.textContent = currentLang.toUpperCase();
 });
 
-// Initialize language
+// Dil değiştirme
 updateLanguage(currentLang);
